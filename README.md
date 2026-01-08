@@ -21,4 +21,6 @@ DeviceProcessEvents
 | sort by TimeGenerated asc 
 | project TimeGenerated, DeviceName, ProcessCommandLine
 ```
+<img width="2005" height="93" alt="image" src="https://github.com/user-attachments/assets/9ebcf31f-a3ba-4ffa-912d-8e371d9f6413" />
+
 
