@@ -8,3 +8,7 @@
 ##  Scenario
 <img width="1469" height="987" alt="image" src="https://github.com/user-attachments/assets/5fd5a913-270d-47c0-82d9-162edd13abdd" />
 
+## Steps Taken
+
+### 1. Searched the `DeviceProcessEvents` Table
+
