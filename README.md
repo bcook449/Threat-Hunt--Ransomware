@@ -144,6 +144,21 @@ DeviceProcessEvents
 ```
 <img width="2092" height="148" alt="image" src="https://github.com/user-attachments/assets/2fa26f62-80b6-46e4-89b1-780a87d3df1c" />
 
+### 6. Searched the  `DeviceProcessEvents` Table
+Began searching for indicators of lateral movement and remote execution of malicious payloads across the network. On `2025-11-25T06:05:46.6079265Z` PSExec was utilzed to forcibly install `silentlynx.exe` on IP `10.1.0.204` udner stolen credentials. 
+
+**Query used to locate events:**
+
+```kql
+DeviceProcessEvents
+| where DeviceName == "azuki-adminpc"
+| where FileName contains "psexec"
+| sort by TimeGenerated asc 
+| project TimeGenerated, AccountName, DeviceName, FileName, ProcessCommandLine
+```
+<img width="2907" height="153" alt="image" src="https://github.com/user-attachments/assets/9757b8a5-09c0-4496-b3dd-d024d3cc24d1" />
+
+
 
 
 
