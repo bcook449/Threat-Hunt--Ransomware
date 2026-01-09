@@ -50,7 +50,9 @@ DeviceProcessEvents
 | sort by TimeGenerated asc 
 | project  TimeGenerated, AccountDomain, AccountName, ProcessCommandLine
 ```
+
 <img width="2111" height="65" alt="image" src="https://github.com/user-attachments/assets/ceda270b-2854-4e01-86a3-1f520f9b1275" />
+
 
 ```kql
 DeviceProcessEvents
@@ -61,6 +63,7 @@ DeviceProcessEvents
 ```
 <img width="2106" height="71" alt="image" src="https://github.com/user-attachments/assets/2b58980d-e7fd-4685-90fe-d1173d12ad0b" />
 
+
 ```kql
 DeviceProcessEvents
 | where DeviceName contains "BackupSrv"
@@ -70,6 +73,7 @@ DeviceProcessEvents
 ```
 <img width="1860" height="86" alt="image" src="https://github.com/user-attachments/assets/2daf8135-ae71-46df-a104-a061a7a09089" />
 
+  
   ```kql
 DeviceProcessEvents
 | where DeviceName contains "BackupSrv"
@@ -78,6 +82,7 @@ DeviceProcessEvents
 | sort by TimeGenerated asc 
 | project  TimeGenerated, AccountDomain, AccountName, ProcessCommandLine
 ```
+
 <img width="2212" height="72" alt="image" src="https://github.com/user-attachments/assets/f6ee5069-f51d-448c-832e-0bcdbb50414f" />
 
 
