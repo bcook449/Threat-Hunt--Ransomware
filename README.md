@@ -144,7 +144,7 @@ DeviceProcessEvents
 ```
 <img width="2092" height="148" alt="image" src="https://github.com/user-attachments/assets/2fa26f62-80b6-46e4-89b1-780a87d3df1c" />
 
-### 6. Searched the  `DeviceProcessEvents` Table
+### 7. Searched the  `DeviceProcessEvents` Table
 Began searching for indicators of lateral movement and remote execution of malicious payloads across the network. On `2025-11-25T06:05:46.6079265Z` PSExec was utilzed to forcibly install `silentlynx.exe` on IP `10.1.0.204` udner stolen credentials. 
 
 **Query used to locate events:**
@@ -157,6 +157,51 @@ DeviceProcessEvents
 | project TimeGenerated, AccountName, DeviceName, FileName, ProcessCommandLine
 ```
 <img width="2907" height="153" alt="image" src="https://github.com/user-attachments/assets/9757b8a5-09c0-4496-b3dd-d024d3cc24d1" />
+
+### 8. Searched the  `DeviceProcessEvents` Table
+Ransomware will stop backup services in order to prevent recovery while the company's data is being encrypted. Began searching Window's shadow copy service to inquire whether this has been corrupted by threat acotr. The shadow copy service allows point-in-time snapshots of files and volumes, even while is use. On `2025-11-25T06:04:53.2550438Z`, the threat actor stopped the shadow copy service. On `2025-11-25T06:04:54.0244502Z`, the threat actor stopped the Windows Backup Engine service. SQL server keeps files open and locked which would inhibit encryption. On `2025-11-25T06:04:57.2127196Z`, the treat actor disabled the SQL server. On `2025-11-25T05:58:55.8089392Z`, the attacker deleted all shadow copies(restore points) to further prevent recovery. 
+
+**Query used to locate events:**
+
+```kql
+DeviceProcessEvents
+| where DeviceName == "azuki-adminpc"
+| where ProcessCommandLine contains "vss"
+| sort by TimeGenerated asc
+| project TimeGenerated, AccountName, DeviceName, ProcessCommandLine
+```
+<img width="2061" height="74" alt="image" src="https://github.com/user-attachments/assets/1856ddb1-2b86-4253-a474-853cdc01be1e" />
+
+```kql
+DeviceProcessEvents
+| where DeviceName == "azuki-adminpc"
+| where ProcessCommandLine contains "wbengine"
+| sort by TimeGenerated asc
+| project TimeGenerated, AccountName, DeviceName, ProcessCommandLine
+```
+<img width="2035" height="87" alt="image" src="https://github.com/user-attachments/assets/c311f4ee-c636-471f-b3db-f20cc2f61345" />
+
+```kql
+DeviceProcessEvents
+| where DeviceName == "azuki-adminpc"
+| where ProcessCommandLine contains "taskkill"
+| sort by TimeGenerated asc
+| project TimeGenerated, AccountName, DeviceName, ProcessCommandLine
+```
+<img width="2152" height="78" alt="image" src="https://github.com/user-attachments/assets/4a657e06-42fb-4a3d-8c49-421cfcade494" />
+
+```kql
+DeviceProcessEvents
+| where DeviceName == "azuki-adminpc"
+| where ProcessCommandLine contains "shadows"
+| sort by TimeGenerated asc
+| project TimeGenerated, AccountName, DeviceName, ProcessCommandLine
+```
+<img width="2310" height="130" alt="image" src="https://github.com/user-attachments/assets/8486d426-0d21-423c-9529-af93795b1af2" />
+
+
+
+
 
 
 
