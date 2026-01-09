@@ -40,7 +40,7 @@ DeviceLogonEvents
 
 ### 3. Searched the  `DeviceProcessEvents` Table
 
-Searched for any indication that the file system was enumerated by the threat actor. On `2025-11-24T14:13:34.757374Z`, the threat actor listed the backups under the backup-admin account. On `2025-11-24T14:16:06.546964Z`, the backup archives were also found and accessed by the threat actor. The attacker also enumerated local accounts on `2025-11-24T14:16:08.673485Z`, with evidence to follow.
+Searched for any indication that the file system was enumerated by the threat actor. On `2025-11-24T14:13:34.757374Z`, the threat actor listed the backups under the backup-admin account. On `2025-11-24T14:16:06.546964Z`, the backup archives were also found and accessed by the threat actor. The attacker also enumerated local accounts on `2025-11-24T14:16:08.673485Z`, with evidence to follow. The attacker also issued a command to reveal scheduled jobs on the system. This occurred on `2025-11-24T14:16:08.703052Z`.
 
 **Queries used to locate events:**
 ```kql
@@ -68,6 +68,17 @@ DeviceProcessEvents
 | where ProcessCommandLine contains "/etc/passwd"
 | project TimeGenerated, InitiatingProcessAccountName, ProcessCommandLine
 ```
-<img width="1860" height="86" alt="image" src="https://github.com/user-attachments/assets/2daf8135-ae71-46df-a104-a061a7a09089" />
+<img width="1860" height="86" alt="image" src="https://github.com/user-attachments/assets/2daf8135-ae71-46df-a104-a061a7a09089" 
+
+  ```kql
+DeviceProcessEvents
+| where DeviceName contains "BackupSrv"
+| where ProcessCommandLine contains "cron"
+| where FileName == "cat"
+| sort by TimeGenerated asc 
+| project  TimeGenerated, AccountDomain, AccountName, ProcessCommandLine
+```
+<img width="2212" height="72" alt="image" src="https://github.com/user-attachments/assets/f6ee5069-f51d-448c-832e-0bcdbb50414f" />
+
 
 
