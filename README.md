@@ -12,6 +12,7 @@
 
 ### 1. Searched the `DeviceProcessEvents` Table
 Searched for any indicators of the threat actor using SSH to pivot to critical infrastructure and eliminate recovery options before ransomware was deployed. It was discovered that on `2025-11-25T05:39:10.889728Z`, the attacker pivoted to the backup-admin PC at 10.1.0.189. 
+
 **Query used to locate events:**
 
 ```kql
@@ -25,6 +26,7 @@ DeviceProcessEvents
 
 ### 2. Searched the `DeviceLogonEvents` Table 
 Searched for any logon attempts and any artifacts of anyone tyring to access the backup server to establish where the attack originated. On `2025-11-25T05:39:22.191096Z`, 10.1.0.108 successfully logged on to the backup server under the backup-admin account. 
+
 **Query used to locate events:**
 
 ```kql
@@ -41,6 +43,15 @@ DeviceLogonEvents
 Searched for any indication that the file system was enumerated by the threat actor. On `2025-11-24T14:13:34.757374Z`, the threat actor listed the backups under the backup-admin account. On `2025-11-24T14:16:06.546964Z`, the backup archives were also found and accessed by the threat actor. The attacker also enumerated local accounts on `2025-11-24T14:16:08.673485Z`, with evidence to follow.
 
 **Queries used to locate events:**
+```kql
+DeviceProcessEvents
+| where DeviceName contains "BackupSrv"
+| where FileName == "ls"
+| sort by TimeGenerated asc 
+| project  TimeGenerated, AccountDomain, AccountName, ProcessCommandLine
+```
+<img width="2111" height="65" alt="image" src="https://github.com/user-attachments/assets/ceda270b-2854-4e01-86a3-1f520f9b1275" />
+
 ```kql
 DeviceProcessEvents
 | where DeviceName contains "BackupSrv"
