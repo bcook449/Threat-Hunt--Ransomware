@@ -35,8 +35,11 @@ DeviceLogonEvents
 | project TimeGenerated, AccountDomain, AccountName, ActionType, RemoteIP
 ```
 <img width="2598" height="80" alt="image" src="https://github.com/user-attachments/assets/1aa03c8b-e943-48cf-8874-bc62fd5a85ce" />
+
 ### 3. Searched the  `DeviceProcessEvents` Table
+
 Searched for any indication that the file system was enumerated by the threat actor. On `2025-11-24T14:13:34.757374Z`, the threat actor listed the backups under the backup-admin account. On `2025-11-24T14:16:06.546964Z`, the backup archives were also found and accessed by the threat actor. The attacker also enumerated local accounts on `2025-11-24T14:16:08.673485Z`, with evidence to follow.
+
 **Queries used to locate events:**
 ```kql
 DeviceProcessEvents
