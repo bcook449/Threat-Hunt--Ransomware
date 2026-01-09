@@ -1,4 +1,4 @@
-# Threat Hunt Report: Unauthorized TOR Usage
+# Threat Hunt Report: Ransomware
 
 ## Platforms and Languages Leveraged
 - Windows 11 Virtual Machines (Microsoft Azure)
@@ -68,7 +68,7 @@ DeviceProcessEvents
 | where ProcessCommandLine contains "/etc/passwd"
 | project TimeGenerated, InitiatingProcessAccountName, ProcessCommandLine
 ```
-<img width="1860" height="86" alt="image" src="https://github.com/user-attachments/assets/2daf8135-ae71-46df-a104-a061a7a09089" 
+<img width="1860" height="86" alt="image" src="https://github.com/user-attachments/assets/2daf8135-ae71-46df-a104-a061a7a09089" />
 
   ```kql
 DeviceProcessEvents
