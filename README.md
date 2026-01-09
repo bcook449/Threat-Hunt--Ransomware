@@ -276,6 +276,9 @@ DeviceFileEvents
 ```
 <img width="2457" height="66" alt="image" src="https://github.com/user-attachments/assets/7533c9c6-c234-4e96-97df-0d3a831e5021" />
 
+# Lessons Learned
+To reduce the risk and impact of ransomware attacks, organizations should implement immutable and regularly tested backups, monitor critical services and shadow copies for unexpected changes, and enforce least privilege and multi-factor authentication for all administrative accounts. Endpoint protections, including EDR and file integrity monitoring, should be deployed to detect suspicious processes, persistence mechanisms, and anti-forensic activity. Users should be trained to recognize phishing and unsafe activity, while centralized logging, incident response playbooks, and periodic threat hunting help ensure rapid detection, recovery, and continuous improvement.
+
 
 
 
