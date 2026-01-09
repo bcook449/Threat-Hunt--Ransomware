@@ -226,6 +226,58 @@ DeviceProcessEvents
 ```
 <img width="2195" height="145" alt="image" src="https://github.com/user-attachments/assets/54a326ba-7c8b-4ea4-81f3-559b15a2bf3c" />
 
+### 9. Searched the  `DeviceRegistryEvents` Table
+Registry keys can execute programs automatically at system startup. On `2025-11-25T06:05:01.1151868Z`, the threat actor modified the registry to run `silentlynx.exe` every time that user logs in. A scheudled task was also created on `2025-11-25T06:05:01.1297501Z` to run `silentlynx.exe` when user logs in. 
+
+**Query used to locate events:**
+
+```kql
+DeviceRegistryEvents
+| where DeviceName == "azuki-adminpc"
+| where RegistryKey contains "run"
+| sort by TimeGenerated asc 
+| project TimeGenerated, DeviceName, InitiatingProcessFileName, RegistryKey, RegistryValueName
+```
+<img width="2489" height="79" alt="image" src="https://github.com/user-attachments/assets/6ccf4886-34bd-4cf6-8950-ed3fd8ec5606" />
+
+```kql
+DeviceProcessEvents
+| where DeviceName == "azuki-adminpc"
+| where FolderPath contains "Tasks"
+| sort by TimeGenerated asc
+| project TimeGenerated, DeviceName, ProcessCommandLine
+```
+<img width="2891" height="68" alt="image" src="https://github.com/user-attachments/assets/7a1b538d-1878-4526-bdc1-7e6fc00e86b2" />
+
+### 10. Searched the  `DeviceProcessEvents` Table
+File system journals are an important aspect of incident response and forensic analysis. Searched DeviceProcessEvents to determine if threat actor corrupted journals. On `2025-11-25T06:10:04.9145097Z`, the threat actor deleted the change journal on the C: drive, permanently removing the record of file changes. 
+
+**Query used to locate events:**
+
+```kql
+DeviceProcessEvents
+| where DeviceName == "azuki-adminpc"
+| where ProcessCommandLine contains "del"
+| sort by TimeGenerated asc 
+| project TimeGenerated, AccountName, DeviceName, ProcessCommandLine
+```
+<img width="2368" height="76" alt="image" src="https://github.com/user-attachments/assets/d8ece58e-f780-4642-991e-f42924a8d96b" />
+
+### 11. Searched the  `DeviceFileEvents` Table
+Searched the DeviceFileEvents table to determine if the the threat actor left any instrcutions on next steps, and to get a better idea of adversary. On `2025-11-25T06:05:01.1055776Z` the threat actor created `SILENTLYNX_README.txt`, revealing ransom note. 
+
+**Query used to locate events:**
+
+```kql
+DeviceFileEvents
+| where DeviceName == "azuki-adminpc"
+| where FileName endswith ".txt"
+| project TimeGenerated, DeviceName, FileName, FolderPath
+```
+<img width="2457" height="66" alt="image" src="https://github.com/user-attachments/assets/7533c9c6-c234-4e96-97df-0d3a831e5021" />
+
+
+
 
 
 
