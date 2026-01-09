@@ -159,7 +159,7 @@ DeviceProcessEvents
 <img width="2907" height="153" alt="image" src="https://github.com/user-attachments/assets/9757b8a5-09c0-4496-b3dd-d024d3cc24d1" />
 
 ### 8. Searched the  `DeviceProcessEvents` Table
-Ransomware will stop backup services in order to prevent recovery while the company's data is being encrypted. Began searching Window's shadow copy service to inquire whether this has been corrupted by threat acotr. The shadow copy service allows point-in-time snapshots of files and volumes, even while is use. On `2025-11-25T06:04:53.2550438Z`, the threat actor stopped the shadow copy service. On `2025-11-25T06:04:54.0244502Z`, the threat actor stopped the Windows Backup Engine service. SQL server keeps files open and locked which would inhibit encryption. On `2025-11-25T06:04:57.2127196Z`, the treat actor disabled the SQL server. On `2025-11-25T05:58:55.8089392Z`, the attacker deleted all shadow copies(restore points) to further prevent recovery. 
+Ransomware will stop backup services in order to prevent recovery while the company's data is being encrypted. Began searching Window's shadow copy service to inquire whether this has been corrupted by threat acotr. The shadow copy service allows point-in-time snapshots of files and volumes, even while is use. On `2025-11-25T06:04:53.2550438Z`, the threat actor stopped the shadow copy service. On `2025-11-25T06:04:54.0244502Z`, the threat actor stopped the Windows Backup Engine service. SQL server keeps files open and locked which would inhibit encryption. On `2025-11-25T06:04:57.2127196Z`, the treat actor disabled the SQL server. On `2025-11-25T05:58:55.8089392Z`, the attacker deleted all shadow copies(restore points) to further prevent recovery. On `2025-11-25T05:59:56.1202753Z`, the attacker also resized Windows shadow service to limit storage availability for recovery. Windows recovery features enable system repair after corruption. On `2025-11-25T06:04:59.5579336Z`, the Windows Recovery Environment was disabled for the default boot entry, make recovery much harder. The Windows backup catalog was also deleted by the threat actor on `2025-11-25T06:04:59.7181241Z`.
 
 **Query used to locate events:**
 
@@ -198,6 +198,36 @@ DeviceProcessEvents
 | project TimeGenerated, AccountName, DeviceName, ProcessCommandLine
 ```
 <img width="2310" height="130" alt="image" src="https://github.com/user-attachments/assets/8486d426-0d21-423c-9529-af93795b1af2" />
+
+```kql
+DeviceProcessEvents
+| where DeviceName == "azuki-adminpc"
+| where ProcessCommandLine contains "shadowstorage"
+| sort by TimeGenerated asc
+| project TimeGenerated, AccountName, DeviceName, ProcessCommandLine
+```
+<img width="2659" height="131" alt="image" src="https://github.com/user-attachments/assets/1c7537a4-7b37-46f3-a694-c2ed820476ec" />
+
+```kql
+DeviceProcessEvents
+| where DeviceName == "azuki-adminpc"
+| where ProcessCommandLine contains "bcdedit"
+| sort by TimeGenerated asc
+| project TimeGenerated, AccountName, DeviceName, ProcessCommandLine
+```
+<img width="2374" height="84" alt="image" src="https://github.com/user-attachments/assets/0362aae1-4bd1-4fae-85d0-0e40fce41dc9" />
+
+```kql
+DeviceProcessEvents
+| where DeviceName == "azuki-adminpc"
+| where ProcessCommandLine contains "catalog"
+| sort by TimeGenerated asc
+| project TimeGenerated, AccountName, DeviceName, ProcessCommandLine
+```
+<img width="2195" height="145" alt="image" src="https://github.com/user-attachments/assets/54a326ba-7c8b-4ea4-81f3-559b15a2bf3c" />
+
+
+
 
 
 
