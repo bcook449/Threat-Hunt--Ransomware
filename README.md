@@ -82,12 +82,20 @@ DeviceProcessEvents
 | sort by TimeGenerated asc 
 | project  TimeGenerated, AccountDomain, AccountName, ProcessCommandLine
 ```
+<img width="2212" height="72" alt="image" src="https://github.com/user-attachments/assets/f6ee5069-f51d-448c-832e-0bcdbb50414f" />
 
 ### 4. Searched the  `DeviceProcessEvents` Table
 Searched the DeviceProcessEvents table to inquire whether threat actor downloaded any external tools to assist in their attack. On `2025-11-25T05:45:34.259149Z`, the threat actor utilized the curl under root priveleges to download an external tool from `hxxps[://]litter[.]catbox[.]moe/io523y[.]7z`.
 **Query used to locate events:**
+```kql
+DeviceProcessEvents
+| where DeviceName contains "BackupSrv"
+| where FileName == "curl"
+| project TimeGenerated, AccountDomain,AccountName, ProcessCommandLine
+```
+<img width="2558" height="156" alt="image" src="https://github.com/user-attachments/assets/df38c633-9aa0-4eda-956d-f102a6610200" />
 
-<img width="2212" height="72" alt="image" src="https://github.com/user-attachments/assets/f6ee5069-f51d-448c-832e-0bcdbb50414f" />
+
 
 
 
