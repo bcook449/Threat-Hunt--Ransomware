@@ -86,7 +86,9 @@ DeviceProcessEvents
 
 ### 4. Searched the  `DeviceProcessEvents` Table
 Searched the DeviceProcessEvents table to inquire whether threat actor downloaded any external tools to assist in their attack. On `2025-11-25T05:45:34.259149Z`, the threat actor utilized the curl command under root priveleges to download an external tool from `hxxps[://]litter[.]catbox[.]moe/io523y[.]7z`.
+
 **Query used to locate events:**
+
 ```kql
 DeviceProcessEvents
 | where DeviceName contains "BackupSrv"
@@ -97,7 +99,9 @@ DeviceProcessEvents
 
 ### 5. Searched the  `DeviceProcessEvents` Table
 On `2025-11-24T14:14:14.217788Z`, the threat actor was able access user credentials in a text file via the backup server, continuing to utilize the backup-admin priveleges. 
+
 **Query used to locate events:**
+
 ```kql
 DeviceProcessEvents
 | where DeviceName contains "BackupSrv"
@@ -109,7 +113,9 @@ DeviceProcessEvents
 
 ### 6. Searched the `DeviceProcessEvents` Table
 Began searching for indicators that threat actor began inhibiting recovery solutions and backups. On `2025-11-25T05:47:02.660493Z` the threat actor deleted the backup archives via the command line from the backup server. On `2025-11-25T05:47:03.652647Z`, the threat actor stopped the cron service, disabling scheduled tasks. On `2025-11-25T05:47:03.684715Z`, the threat actor disabled the cron service from the backup server. 
+
 **Query used to locate events:**
+
 ```kql
 DeviceProcessEvents
 | where DeviceName contains "BackupSrv"
