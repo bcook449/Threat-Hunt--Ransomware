@@ -85,7 +85,7 @@ DeviceProcessEvents
 <img width="2212" height="72" alt="image" src="https://github.com/user-attachments/assets/f6ee5069-f51d-448c-832e-0bcdbb50414f" />
 
 ### 4. Searched the  `DeviceProcessEvents` Table
-Searched the DeviceProcessEvents table to inquire whether threat actor downloaded any external tools to assist in their attack. On `2025-11-25T05:45:34.259149Z`, the threat actor utilized the curl under root priveleges to download an external tool from `hxxps[://]litter[.]catbox[.]moe/io523y[.]7z`.
+Searched the DeviceProcessEvents table to inquire whether threat actor downloaded any external tools to assist in their attack. On `2025-11-25T05:45:34.259149Z`, the threat actor utilized the curl command under root priveleges to download an external tool from `hxxps[://]litter[.]catbox[.]moe/io523y[.]7z`.
 **Query used to locate events:**
 ```kql
 DeviceProcessEvents
@@ -94,6 +94,50 @@ DeviceProcessEvents
 | project TimeGenerated, AccountDomain,AccountName, ProcessCommandLine
 ```
 <img width="2558" height="156" alt="image" src="https://github.com/user-attachments/assets/df38c633-9aa0-4eda-956d-f102a6610200" />
+
+### 5. Searched the  `DeviceProcessEvents` Table
+On `2025-11-24T14:14:14.217788Z`, the threat actor was able access user credentials in a text file via the backup server, continuing to utilize the backup-admin priveleges. 
+**Query used to locate events:**
+```kql
+DeviceProcessEvents
+| where DeviceName contains "BackupSrv"
+| where FileName == "cat"
+| where ProcessCommandLine endswith ".txt"
+| project TimeGenerated, AccountName, AccountDomain, DeviceName, ProcessCommandLine
+```
+<img width="2833" height="220" alt="image" src="https://github.com/user-attachments/assets/9d369cdb-d539-4ebe-b2bc-3d795e673c8d" />
+
+### 6. Searched the `DeviceProcessEvents` Table
+Began searching for indicators that threat actor began inhibiting recovery solutions and backups. On `2025-11-25T05:47:02.660493Z` the threat actor deleted the backup archives via the command line from the backup server. On `2025-11-25T05:47:03.652647Z`, the threat actor stopped the cron service, disabling scheduled tasks. On `2025-11-25T05:47:03.684715Z`, the threat actor disabled the cron service from the backup server. 
+**Query used to locate events:**
+```kql
+DeviceProcessEvents
+| where DeviceName contains "BackupSrv"
+| where FileName == "rm"
+| where ProcessCommandLine contains "backups"
+| project TimeGenerated, AccountName, DeviceName, ProcessCommandLine
+```
+<img width="2914" height="80" alt="image" src="https://github.com/user-attachments/assets/7ef1e301-a0b8-493d-a384-ad51e0da9080" />
+
+```kql
+DeviceProcessEvents
+| where DeviceName contains "BackupSrv"
+| where FileName == "systemctl"
+| where ProcessCommandLine contains "stop"
+| project TimeGenerated, AccountName, DeviceName, ProcessCommandLine
+```
+<img width="1979" height="243" alt="image" src="https://github.com/user-attachments/assets/0d1f8409-030e-4989-a272-a0b91da296ac" />
+
+```kql
+DeviceProcessEvents
+| where DeviceName contains "BackupSrv"
+| where FileName == "systemctl"
+| where ProcessCommandLine contains "disable"
+| sort by TimeGenerated asc 
+| project TimeGenerated, AccountName, DeviceName, ProcessCommandLine
+```
+<img width="2092" height="148" alt="image" src="https://github.com/user-attachments/assets/2fa26f62-80b6-46e4-89b1-780a87d3df1c" />
+
 
 
 
