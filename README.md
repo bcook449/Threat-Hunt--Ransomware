@@ -145,7 +145,7 @@ DeviceProcessEvents
 <img width="2092" height="148" alt="image" src="https://github.com/user-attachments/assets/2fa26f62-80b6-46e4-89b1-780a87d3df1c" />
 
 ### 7. Searched the  `DeviceProcessEvents` Table
-Began searching for indicators of lateral movement and remote execution of malicious payloads across the network. On `2025-11-25T06:05:46.6079265Z` PSExec was utilzed to forcibly install `silentlynx.exe` on IP `10.1.0.204` udner stolen credentials. 
+Began searching for indicators of lateral movement and remote execution of malicious payloads across the network. On `2025-11-25T06:05:46.6079265Z` PSExec was utilzed to forcibly install `silentlynx.exe` on IP `10.1.0.204`, under stolen credentials. 
 
 **Query used to locate events:**
 
